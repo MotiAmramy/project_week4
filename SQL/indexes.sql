@@ -27,7 +27,7 @@ LIMIT 1;
 
 
 CREATE INDEX idx_mission_date ON mission (extract(year from mission_date));
-
+CREATE INDEX idx_mission_id ON mission (mission_id);
 
 
 "              Group Key: air_force, target_city"
@@ -38,7 +38,7 @@ CREATE INDEX idx_mission_date ON mission (extract(year from mission_date));
 "                    ->  Bitmap Index Scan on idx_mission_date  (cost=0.00..19.10 rows=891 width=0) (actual time=2.513..2.514 rows=23214 loops=1)"
 "                          Index Cond: (EXTRACT(year FROM mission_date) = '1943'::numeric)"
 "Planning Time: 1.236 ms"
-"Execution Time: 10.366 ms"
+"Execution Time: 7.866 ms"
 
 --after i create the indexes
 
@@ -63,6 +63,11 @@ order by count(bomb_damage_assessment) desc limit 1
 
 
 --befor i create the index
+
+
+
+--CREATE INDEX idx_airborne_aircraft ON mission (airborne_aircraft);
+--CREATE INDEX idx_bomb_damage_assessment ON mission (bomb_damage_assessment);
 
 
 "Limit  (cost=5784.50..5784.50 rows=1 width=52) (actual time=34.994..38.304 rows=1 loops=1)"
@@ -116,3 +121,8 @@ order by count(bomb_damage_assessment) desc limit 1
 --CREATE INDEX idx_mission_date ON mission (extract(year from mission_date));
 --CREATE INDEX idx_airborne_aircraft ON mission (airborne_aircraft);
 --CREATE INDEX idx_bomb_damage_assessment ON mission (bomb_damage_assessment);
+--CREATE INDEX idx_mission_id ON mission (mission_id);
+
+בחרתי באינדקסים האלה כי הם הכי היו יעילים לפרויקט
+ולביצוע השאילתות זה מסייע גם זמן הביצוע
+וכן זה יעזור גם לשאילתות עתידיות כך שזה יכןל להיות גנרי
