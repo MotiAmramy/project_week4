@@ -1,4 +1,4 @@
-from returns.maybe import Maybe
+from returns.maybe import Maybe, Nothing
 from returns.result import Success, Result, Failure
 from sqlalchemy.exc import SQLAlchemyError
 from config.base import session_factory
