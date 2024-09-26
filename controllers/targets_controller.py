@@ -1,7 +1,4 @@
-from tkinter import EXCEPTION
-
 from flask import Blueprint, request, jsonify
-from returns.result import Success
 from repository.target_repository import insert_target, find_target_by_id, update_target, delete_target_by_id, get_all_targets
 from models.Targets import targets
 from services.utils import target_to_json

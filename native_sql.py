@@ -45,3 +45,55 @@ def create_tables():
         session.execute(text(create_target_types_table))
         session.execute(text(create_targets_table))
         session.commit()
+
+
+def insert_data():
+    insert_countries = """
+    INSERT INTO Countries (country_name)
+    SELECT DISTINCT target_country
+    FROM mission
+    WHERE target_country IS NOT NULL
+    ON CONFLICT (country_name) DO NOTHING;
+    """
+
+    insert_cities = """
+    INSERT INTO Cities (city_name, country_id, latitude, longitude)
+    SELECT DISTINCT
+        m.target_city,
+        c.country_id,
+        m.target_latitude::decimal,
+        m.target_longitude::decimal
+    FROM mission m
+    JOIN Countries c ON m.country = c.country_name
+    WHERE m.target_city IS NOT NULL
+    ON CONFLICT (city_name) DO NOTHING;
+    """
+
+    insert_target_types = """
+    INSERT INTO TargetTypes (target_type_name)
+    SELECT DISTINCT target_type
+    FROM mission
+    WHERE target_type IS NOT NULL
+    ON CONFLICT (target_type_name) DO NOTHING;
+    """
+
+    insert_targets = """
+    INSERT INTO Targets (target_industry, target_priority, city_id, target_type_id)
+    SELECT DISTINCT
+        m.target_industry,
+        m.target_priority::integer,
+        ci.city_id,
+        tt.target_type_id
+    FROM mission m
+    INNER JOIN Cities ci ON m.target_city = ci.city_name
+    INNER JOIN TargetTypes tt ON m.target_type = tt.target_type_name
+    WHERE m.target_id IS NOT NULL AND m.target_industry IS NOT NULL
+    ON CONFLICT (target_id) DO NOTHING;
+    """
+
+    with session_factory() as session:
+        session.execute(text(insert_countries))
+        session.execute(text(insert_cities))
+        session.execute(text(insert_target_types))
+        session.execute(text(insert_targets))
+        session.commit()
