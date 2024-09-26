@@ -1,6 +1,5 @@
 from flask import Flask
 from controllers.targets_controller import target_blueprint
-from repository.target_repository import get_all_targets
 
 app = Flask(__name__)
 
