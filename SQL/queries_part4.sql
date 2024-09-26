@@ -11,6 +11,8 @@ ORDER BY
     total_missions DESC
 LIMIT 1;
 
+
+
 EXPLAIN
 SELECT 
     air_force, 
