@@ -66,8 +66,8 @@ order by count(bomb_damage_assessment) desc limit 1
 
 
 
---CREATE INDEX idx_airborne_aircraft ON mission (airborne_aircraft);
---CREATE INDEX idx_bomb_damage_assessment ON mission (bomb_damage_assessment);
+CREATE INDEX idx_airborne_aircraft ON mission (airborne_aircraft);
+CREATE INDEX idx_bomb_damage_assessment ON mission (bomb_damage_assessment);
 
 
 "Limit  (cost=5784.50..5784.50 rows=1 width=52) (actual time=34.994..38.304 rows=1 loops=1)"

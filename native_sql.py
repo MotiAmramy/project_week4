@@ -39,7 +39,7 @@ def create_tables():
     );
     """
 
-    with session_factory() as session:
+with session_   factory() as session:
         session.execute(text(create_countries_table))
         session.execute(text(create_cities_table))
         session.execute(text(create_target_types_table))
